@@ -22,6 +22,12 @@ class rest:
         if req.status_code == 500:
             print("Error applying {}: {}".format(url, req.text))
 
+    @classmethod
+    def put(cls, url, j=None):
+        req = requests.post("https://review.lineageos.org/a{}".format(url, auth=cls.auth, json=j)
+        if req.status_code == 500:
+            print("Error applying {}: {}".format(url, req.text))
+
 projects = [x for x in rest.get("/projects/?p=PROJECT").keys()]
 projects.extend([x for x in rest.get("/projects/?p=OEM").keys()])
 groups = rest.get("/groups/")
