@@ -1,10 +1,10 @@
 import os
-from config import USERNAME, PASSWORD
+from config import *
 
 print(f"Logging at {LOG_LEVEL}")
 
 def dprint(*args):
-    if os.environ.get("LOG_LEVEL", "INFO") == "DEBUG":
+    if LOG_LEVEL == "DEBUG":
         print(*args)
 
 class rest:
