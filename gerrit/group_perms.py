@@ -11,22 +11,22 @@ class rest:
 
     @classmethod
     def get(cls, url):
-        req = requests.get("https://review.lineageos.org/a{}".format(url), auth=cls.auth)
+        req = requests.get(f"{URL}a{url}", auth=cls.auth)
         if req.status_code == 200:
             raw = req.text[5:]
             return json.loads(raw)
 
     @classmethod
     def post(cls, url, j):
-        req = requests.post("https://review.lineageos.org/a{}".format(url), auth=cls.auth, json=j)
+        req = requests.post(f"{URL}a{url}", auth=cls.auth, json=j)
         if req.status_code == 500:
-            print("Error applying {}: {}".format(url, req.text))
+            print(f"Error applying {url}: {req.text}")
 
     @classmethod
     def put(cls, url, j=None):
-        req = requests.post("https://review.lineageos.org/a{}".format(url, auth=cls.auth, json=j)
+        req = requests.put(f"{URL}a{url}", auth=cls.auth, json=j)
         if req.status_code == 500:
-            print("Error applying {}: {}".format(url, req.text))
+            print(f"Error applying {url}: {req.text}")
 
 projects = [x for x in rest.get("/projects/?p=PROJECT").keys()]
 projects.extend([x for x in rest.get("/projects/?p=OEM").keys()])
@@ -34,8 +34,8 @@ groups = rest.get("/groups/")
 for project in projects:
     group_data = groups.get(project, None)
     if not group_data:
-        print("Missing group for {} - creating".format(project))
-        rest.put("/groups/{}".format(project))
+        print(f"Missing group for {project} - creating")
+        rest.put("/groups/{project}")
         continue
     group = str(group_data["id"])
     new = {
@@ -145,14 +145,14 @@ for project in projects:
         }},
 
     }
-    perms = rest.get("/projects/{}/access".format(project))['local']
+    perms = rest.get(f"/projects/{project}/access")['local']
     if new == perms:
-        print("No Changes - {}".format(project))
+        print(f"No Changes - {project}")
     else:
         remove = {
             "remove": {"refs/heads/*": {}}
         }
         if perms:
-            remove = rest.post("/projects/{}/access".format(project), j={'remove': perms})
-        add = rest.post("/projects/{}/access".format(project), j={"add": new})
-        print("Reset {}".format(project))
+            remove = rest.post("/projects/{project}/access", j={'remove': perms})
+        add = rest.post("/projects/{project}/access", j={"add": new})
+        print(f"Reset {project}")
