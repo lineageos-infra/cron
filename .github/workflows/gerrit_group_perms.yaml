@@ -1,0 +1,19 @@
+name: Gerrit Group permissions
+on:
+  schedule:
+    - cron: "0 * * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - env:
+          GERRIT_USERNAME: ${{ secrets.GERRIT_USERNAME }}
+          GERRIT_PASSWOIRD: ${{ secrets.GERRIT_PASSWORD }}
+        run: |
+          pip install -r gerrit/requirements.txt
+          python gerrit/group_perms.py
