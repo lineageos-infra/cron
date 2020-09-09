@@ -22,7 +22,7 @@ jobs:
           pip install -r gerrit/requirements.txt
           python gerrit/group_perms.py
       - name: notify slack on failure
-        if: ${{ always() }
+        if: ${{ always() }}
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
