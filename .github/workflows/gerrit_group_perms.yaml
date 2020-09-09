@@ -22,7 +22,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "true"
           GERRIT_USERNAME: ${{ secrets.GERRIT_USERNAME }}
           GERRIT_PASSWORD: ${{ secrets.GERRIT_PASSWORD }}
-          LOGLEVEL: ${{ github.event.input.logLevel }}
+          LOG_LEVEL: ${{ github.event.input.logLevel }}
         run: |
           pip install -r gerrit/requirements.txt
           python gerrit/group_perms.py
