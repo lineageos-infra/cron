@@ -13,6 +13,8 @@ jobs:
         with:
           python-version: "3.x"
       - env:
+          PYTHONUNBUFFERED: "true"
+          PYTHONDONTWRITEBYTECODE: "true"
           GERRIT_USERNAME: ${{ secrets.GERRIT_USERNAME }}
           GERRIT_PASSWORD: ${{ secrets.GERRIT_PASSWORD }}
         run: |
