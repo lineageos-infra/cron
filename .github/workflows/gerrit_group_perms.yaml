@@ -17,6 +17,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "true"
           GERRIT_USERNAME: ${{ secrets.GERRIT_USERNAME }}
           GERRIT_PASSWORD: ${{ secrets.GERRIT_PASSWORD }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
           LOG_LEVEL: ${{ github.event.input.logLevel }}
         run: |
           pip install -r gerrit/requirements.txt

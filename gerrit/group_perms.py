@@ -1,11 +1,12 @@
 from config import URL
 from datadiff import diff
-from lib import rest
+from lib import rest, send_slack
 
 
 projects = [x for x in rest.get("/projects/?p=PROJECT").keys()]
 projects.extend([x for x in rest.get("/projects/?p=OEM").keys()])
 groups = rest.get("/groups/")
+modified = []
 for project in projects:
     group_data = groups.get(project, None)
     if not group_data:
@@ -131,3 +132,7 @@ for project in projects:
             remove = rest.post("/projects/{project}/access", j={'remove': perms})
         add = rest.post("/projects/{project}/access", j={"add": new})
         print(f"Reset {project}")
+        modified += project
+
+if modified:
+    send_slack(f"Reset project permissions on {', '.join(modified)}")
