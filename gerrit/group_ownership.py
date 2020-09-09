@@ -13,7 +13,7 @@ for group in filtered_groups:
     if groups[group]['owner'] != 'Head Developers':
         print(f'{group} isn\'t owned by Head Developers, fixing')
         rest.put('/groups/{}/owner'.format(_id), {'owner': parent_id})
-        modified += group
+        modified.append(group)
 
 if modified:
     send_slack(f"Reset group owner on {', '.join(modified)}")

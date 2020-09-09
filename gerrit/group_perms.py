@@ -132,7 +132,7 @@ for project in projects:
             remove = rest.post("/projects/{project}/access", j={'remove': perms})
         add = rest.post("/projects/{project}/access", j={"add": new})
         print(f"Reset {project}")
-        modified += project
+        modified.append(project)
 
 if modified:
     send_slack(f"Reset project permissions on {', '.join(modified)}")
