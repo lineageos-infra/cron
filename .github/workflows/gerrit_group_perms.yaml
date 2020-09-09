@@ -1,7 +1,8 @@
 name: Gerrit Group permissions
 on:
   schedule:
-    - cron: "0 * * * *"
+    - cron: "0 * * * *"a
+  workflow_dispatch:
 
 jobs:
   build:
