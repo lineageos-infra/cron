@@ -21,3 +21,12 @@ jobs:
         run: |
           pip install -r gerrit/requirements.txt
           python gerrit/group_perms.py
+      - name: notify slack on failure
+        if: ${{ always() }
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL }}
+          SLACK_MESSAGE: "A job has failed: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+          pip install -r slack/requirements.txt
+          python slack/notify.py
