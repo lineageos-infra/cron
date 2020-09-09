@@ -1,6 +1,5 @@
 import json
 
-import requests
 from config import URL
 from datadiff import diff
 from lib import dprint, rest
