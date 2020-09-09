@@ -1,4 +1,4 @@
-name: Gerrit Group permissions
+name: Gerrit Group ownership
 on:
   schedule:
     - cron: "0 0 * * *"
