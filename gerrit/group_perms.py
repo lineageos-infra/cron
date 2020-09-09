@@ -4,6 +4,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from config import USERNAME, PASSWORD, URL
 from datadiff import diff
+from lib import dprint
 
 
 class rest:
@@ -12,6 +13,7 @@ class rest:
     @classmethod
     def get(cls, url):
         req = requests.get(f"{URL}a{url}", auth=cls.auth)
+        dprint(req.status_code, req.text)
         if req.status_code == 200:
             raw = req.text[5:]
             return json.loads(raw)
@@ -19,12 +21,14 @@ class rest:
     @classmethod
     def post(cls, url, j):
         req = requests.post(f"{URL}a{url}", auth=cls.auth, json=j)
+        dprint(req.status_code, req.text)
         if req.status_code == 500:
             print(f"Error applying {url}: {req.text}")
 
     @classmethod
     def put(cls, url, j=None):
         req = requests.put(f"{URL}a{url}", auth=cls.auth, json=j)
+        dprint(req.status_code, req.text)
         if req.status_code == 500:
             print(f"Error applying {url}: {req.text}")
 
@@ -147,7 +151,7 @@ for project in projects:
     }
     perms = rest.get(f"/projects/{project}/access")['local']
     if new == perms:
-        print(f"No Changes - {project}")
+        dprint(f"No Changes - {project}")
     else:
         remove = {
             "remove": {"refs/heads/*": {}}

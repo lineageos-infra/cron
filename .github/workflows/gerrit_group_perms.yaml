@@ -2,7 +2,12 @@ name: Gerrit Group permissions
 on:
   schedule:
     - cron: "0 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: "log level, set to DEBUG for more logs"
+        required: true
+        default: "INFO"
 
 jobs:
   build:
@@ -17,6 +22,7 @@ jobs:
           PYTHONDONTWRITEBYTECODE: "true"
           GERRIT_USERNAME: ${{ secrets.GERRIT_USERNAME }}
           GERRIT_PASSWORD: ${{ secrets.GERRIT_PASSWORD }}
+          LOGLEVEL: ${{ github.event.input.logLevel }}
         run: |
           pip install -r gerrit/requirements.txt
           python gerrit/group_perms.py
