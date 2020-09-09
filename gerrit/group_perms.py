@@ -1,6 +1,6 @@
 from config import URL
 from datadiff import diff
-from lib import dprint, rest
+from lib import rest
 
 
 projects = [x for x in rest.get("/projects/?p=PROJECT").keys()]
@@ -122,7 +122,7 @@ for project in projects:
     }
     perms = rest.get(f"/projects/{project}/access")['local']
     if new == perms:
-        dprint(f"No Changes - {project}")
+        continue
     else:
         remove = {
             "remove": {"refs/heads/*": {}}
