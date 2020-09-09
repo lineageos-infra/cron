@@ -1,7 +1,6 @@
 import json
 
 import requests
-from requests.auth import HTTPBasicAuth
 from config import URL
 from datadiff import diff
 from lib import dprint, rest

@@ -1,4 +1,7 @@
 import os
+
+from requests.auth import HTTPBasicAuth
+
 from config import *
 
 print(f"Logging at {LOG_LEVEL}")
