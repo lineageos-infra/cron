@@ -1,4 +1,4 @@
-Game: Gerrit Group permissions
+name: Gerrit Group permissions
 on:
   schedule:
     - cron: "0 * * * *"
