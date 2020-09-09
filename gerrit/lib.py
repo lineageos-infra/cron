@@ -30,4 +30,4 @@ class rest:
             print(f"Error applying {url}: {req.status_code} {req.text}")
 
 def send_slack(message):
-    requests.post(SLACK_WEBHOOK, json={message: message, channel: "#infrastructure-cron", username: "Github Actions", icon_url: SLACK_ICON)
+    requests.post(SLACK_WEBHOOK, json={message: message, channel: "#infrastructure-cron", username: "Github Actions", icon_url: SLACK_ICON})
