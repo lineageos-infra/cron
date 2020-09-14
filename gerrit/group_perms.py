@@ -11,7 +11,7 @@ for project in projects:
     group_data = groups.get(project, None)
     if not group_data:
         print(f"Missing group for {project} - creating")
-        rest.put("/groups/{project}")
+        rest.put(f"/groups/{project}")
         continue
     group = str(group_data["id"])
     new = {
@@ -136,8 +136,8 @@ for project in projects:
             "remove": {"refs/heads/*": {}}
         }
         if perms:
-            remove = rest.post("/projects/{project}/access", j={'remove': perms})
-        add = rest.post("/projects/{project}/access", j={"add": new})
+            remove = rest.post(f"/projects/{project}/access", j={'remove': perms})
+        add = rest.post(f"/projects/{project}/access", j={"add": new})
         print(f"Reset {project}")
         modified.append(project)
 
