@@ -19,8 +19,8 @@ class rest:
     @classmethod
     def post(cls, url, j):
         req = requests.post(f"{URL}a{url}", auth=cls.auth, json=j)
-        if req.status_code == 500:
-            print(f"Error applying {url}: {req.text}")
+        if req.status_code < 200 or req.status_code > 299:
+            print(f"Error applying {url}: {req.status_code} {req.text}")
 
     @classmethod
     def put(cls, url, j=None):
