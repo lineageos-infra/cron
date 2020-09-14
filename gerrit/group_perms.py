@@ -119,7 +119,14 @@ for project in projects:
                 }}
             }
         }},
-
+        'refs/heads/lineage-18.0': { 'permissions': {
+            'create': {
+                'rules': {group: {
+                    'action': 'ALLOW',
+                    'force': False
+                }}
+            }
+        }},
     }
     perms = rest.get(f"/projects/{project}/access")['local']
     if new == perms:
