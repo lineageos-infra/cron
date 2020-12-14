@@ -119,14 +119,6 @@ for project in projects:
                 }}
             }
         }},
-        'refs/heads/lineage-18.0': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
         'refs/heads/lineage-18.1': { 'permissions': {
             'create': {
                 'rules': {group: {
