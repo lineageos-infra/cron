@@ -14,6 +14,16 @@ for project in projects:
         rest.put(f"/groups/{project}")
         continue
     group = str(group_data["id"])
+    branches = [
+        "refs/heads/staging/*",
+        "refs/heads/backup/*",
+        "refs/heads/cm-14.1",
+        "refs/heads/lineage-15.1",
+        "refs/heads/lineage-16.0",
+        "refs/heads/lineage-17.1",
+        "refs/heads/lineage-18.1",
+        "refs/heads/lineage-19.0",
+    ]
     new = {
         'refs/heads/*': { 'permissions': {
             'label-Code-Review': {
@@ -71,71 +81,29 @@ for project in projects:
                 }}
             },
         }},
-        'refs/heads/staging/*': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            },
-        }},
-        'refs/heads/backup/*': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/cm-14.1': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/lineage-15.1': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/lineage-16.0': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/lineage-17.1': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/lineage-18.1': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
-        'refs/heads/lineage-19.0': { 'permissions': {
-            'create': {
-                'rules': {group: {
-                    'action': 'ALLOW',
-                    'force': False
-                }}
-            }
-        }},
     }
+    
+    if project == 'PROJECT-qcom-hardware':
+        branches += [
+            "^refs/heads/cm-14.1-caf(-[0-9]{3,4})?",
+            "^refs/heads/lineage-15.1-caf(-[0-9]{3,4})?",
+            "^refs/heads/lineage-16.0-caf(-[0-9]{3,4})?",
+            "^refs/heads/lineage-17.1-caf(-(msm|sdm|sm)[0-9]{3,4})?",
+            "^refs/heads/lineage-18.1-caf(-(msm|sdm|sm)[0-9]{3,4})?",
+            "^refs/heads/lineage-19.0-caf(-(msm|sdm|sm)[0-9]{3,4})?",
+        ]
+    for branch in branches:
+        new[branch] = {
+            'permissions': {
+                'create': {
+                    'rules': {group: {
+                        'action': 'ALLOW',
+                        'force': False
+                    }}
+                },
+            }
+        }
+        
     perms = rest.get(f"/projects/{project}/access")['local']
     if new == perms:
         continue
