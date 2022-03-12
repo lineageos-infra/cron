@@ -22,7 +22,6 @@ for project in projects:
         "refs/heads/lineage-16.0",
         "refs/heads/lineage-17.1",
         "refs/heads/lineage-18.1",
-        "refs/heads/lineage-19.0",
         "refs/heads/lineage-19.1",
     ]
     new = {
@@ -91,7 +90,6 @@ for project in projects:
             "^refs/heads/lineage-16.0-caf(-[0-9]{3,4})?",
             "^refs/heads/lineage-17.1-caf(-(msm|sdm|sm)[0-9]{3,4})?",
             "^refs/heads/lineage-18.1-caf(-(msm|sdm|sm)[0-9]{3,4})?",
-            "^refs/heads/lineage-19.0-caf(-(msm|sdm|sm)[0-9]{3,4})?",
             "^refs/heads/lineage-19.1-caf(-(msm|sdm|sm)[0-9]{3,4})?",
         ]
     for branch in branches:
